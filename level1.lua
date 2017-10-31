@@ -24,6 +24,7 @@ function scene:create( event )
 
 	local sceneGroup = self.view
 
+	-- Dank memes
 	-- We need physics started to add bodies, but we don't want the simulaton
 	-- running until the scene is on the screen.
 	physics.start()
