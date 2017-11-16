@@ -32,8 +32,6 @@ t.x, t.y = display.contentCenterX, 70
 
 -- These are the functions triggered by the buttons
 
-
-
 local buttonHandler = function( event )
 	t.text = "id = " .. event.target.id .. ", phase = " .. event.phase
 end
