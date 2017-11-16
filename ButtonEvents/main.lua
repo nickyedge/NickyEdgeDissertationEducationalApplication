@@ -32,32 +32,11 @@ t.x, t.y = display.contentCenterX, 70
 
 -- These are the functions triggered by the buttons
 
-local button1Press = function( event )
-	t.text = "Button 1 pressed"
-end
-
-local button1Release = function( event )
-	t.text = "Button 1 released"
-end
 
 
 local buttonHandler = function( event )
 	t.text = "id = " .. event.target.id .. ", phase = " .. event.phase
 end
-
-
--- This button has individual press and release functions
--- (The label font defaults to native.systemFontBold if no font is specified)
-
-local button1 = widget.newButton
-{
-	defaultFile = "buttonRed.png",
-	overFile = "buttonRedOver.png",
-	label = "Button 1 Label",
-	emboss = true,
-	onPress = button1Press,
-	onRelease = button1Release,
-}
 
 
 -- These other four buttons share a single event handler function, identifying themselves by "id"
@@ -66,57 +45,55 @@ local button1 = widget.newButton
 -- Also, some label fonts may appear vertically offset in the Simulator, but not on device, due to
 -- different device font rendering. The button object has an optional "offset" property for minor
 -- vertical adjustment to the label position, if necessary (example: offset = -2)
-
-local button2 = widget.newButton
+ button1 = widget.newButton
 {
-	id = "button2",
-	defaultFile = "buttonYellow.png",
-	overFile = "buttonYellowOver.png",
-	label = "Button 2 Label",
-	labelColor = 
-	{ 
-		default = { 51, 51, 51, 255 },
-	},
+	id = "button1",
+	defaultFile = "buttonGray.png",
+	overFile = "buttonBlue.png",
+	label = "Example Answer 1",
 	font = native.systemFont,
-	fontSize = 22,
+	fontSize = 16,
 	emboss = true,
 	onEvent = buttonHandler,
 }
 
-local button3 = widget.newButton
+ button2 = widget.newButton
+{
+	id = "button2",
+	defaultFile = "buttonGray.png",
+	overFile = "buttonBlue.png",
+	label = "Example Answer 2",
+	font = native.systemFont,
+	fontSize = 16,
+	emboss = true,
+	onEvent = buttonHandler,
+}
+
+ button3 = widget.newButton
 {
 	id = "button3",
 	defaultFile = "buttonGray.png",
 	overFile = "buttonBlue.png",
-	label = "Button 3 Label",
+	label = "Example Answer 3",
 	font = native.systemFont,
-	fontSize = 28,
+	fontSize = 16,
 	emboss = true,
 	onEvent = buttonHandler,
 }
 
-local buttonSmall = widget.newButton
+ button4 = widget.newButton
 {
-	id = "smallBtn",
-	defaultFile = "buttonBlueSmall.png",
-	overFile = "buttonBlueSmallOver.png",
-	label = " I'm Small",
-	fontSize = 12,
+	id = "button4",
+	defaultFile = "buttonGray.png",
+	overFile = "buttonBlue.png",
+	label = "Example Answer 4",
+	font = native.systemFont,
+	fontSize = 16,
 	emboss = true,
 	onEvent = buttonHandler,
 }
 
--- Of course, buttons don't always have labels
-local buttonArrow = widget.newButton
-{
-	id = "arrow",
-	defaultFile = "buttonArrow.png",
-	overFile = "buttonArrowOver.png",
-	onEvent = buttonHandler,
-}
-
-button1.x = 160; button1.y = 160
-button2.x = 160; button2.y = 240
-button3.x = 160; button3.y = 320
-buttonSmall.x = 85; buttonSmall.y = 400
-buttonArrow.x = 250; buttonArrow.y = 400
+button1.x = 160; button1.y = 240
+button2.x = 160; button2.y = 320
+button3.x = 160; button3.y = 400
+button4.x = 160; button4.y = 480
