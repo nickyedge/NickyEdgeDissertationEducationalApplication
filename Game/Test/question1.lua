@@ -56,13 +56,13 @@ end
 function scene:create( event )
 	local sceneGroup = self.view
 
-	-- create a widget button (which will loads level1.lua on release)
+	-- create a widget button (which will load the next scene on release)
 	rightAnswer = widget.newButton
 		{
 		id = "rightAnswer",
 		defaultFile = "buttonGray.png",
 		overFile = "buttonBlue.png",
-		label = "Example Answer 2",
+		label = "Right Answer",
 		font = native.systemFont,
 		fontSize = 16,
 		emboss = true,
@@ -73,7 +73,7 @@ function scene:create( event )
 		id = "wrongAnswer1",
 		defaultFile = "buttonGray.png",
 		overFile = "buttonBlue.png",
-		label = "Example Answer 4",
+		label = "Wrong Answer",
 		font = native.systemFont,
 		fontSize = 16,
 		emboss = true,
@@ -84,7 +84,7 @@ function scene:create( event )
 		id = "wrongAnswer2",
 		defaultFile = "buttonGray.png",
 		overFile = "buttonBlue.png",
-		label = "Example Answer 4",
+		label = "Wrong Answer",
 		font = native.systemFont,
 		fontSize = 16,
 		emboss = true,
@@ -95,7 +95,7 @@ function scene:create( event )
 		id = "wrongAnswer3",
 		defaultFile = "buttonGray.png",
 		overFile = "buttonBlue.png",
-		label = "Example Answer 4",
+		label = "Wrong Answer",
 		font = native.systemFont,
 		fontSize = 16,
 		emboss = true,

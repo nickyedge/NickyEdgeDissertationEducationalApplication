@@ -1,6 +1,6 @@
 -----------------------------------------------------------------------------------------
 --
--- question5.lua
+-- question14.lua
 --
 -----------------------------------------------------------------------------------------
 
@@ -23,7 +23,7 @@ local wrongAnswer3
 local function onRightAnswer()
 	
 	-- go to level1.lua scene
-	composer.gotoScene( "question6", "fade", 500 )
+	composer.gotoScene( "question15", "fade", 500 )
 
 	return true	-- indicates successful touch
 end
@@ -103,8 +103,8 @@ function scene:create( event )
 	}
 	wrongAnswer1.x = 160;wrongAnswer1.y = 240
 	wrongAnswer2.x = 160; wrongAnswer2.y = 320
-	wrongAnswer3.x = 160; wrongAnswer3.y = 400
-	rightAnswer.x = 160; rightAnswer.y = 480
+	rightAnswer.x = 160; rightAnswer.y = 400
+	wrongAnswer3.x = 160; wrongAnswer3.y = 480
 	
 	-- all display objects must be inserted into group
 	sceneGroup:insert( rightAnswer )

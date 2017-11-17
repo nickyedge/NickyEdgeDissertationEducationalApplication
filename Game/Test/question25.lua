@@ -1,6 +1,6 @@
 -----------------------------------------------------------------------------------------
 --
--- Question1.lua
+-- question25.lua
 --
 -----------------------------------------------------------------------------------------
 
@@ -12,83 +12,105 @@ local widget = require "widget"
 
 --------------------------------------------
 
-local t = display.newText( "Waiting for button event...", 0, 0, native.systemFont, 18 )
-t.x, t.y = display.contentCenterX, 70
-
 -- forward declarations and other locals
 local rightAnswer
+local wrongAnswer1
+local wrongAnswer2
+local wrongAnswer3
+
 
 -- 'onRelease' event listener for playBtn
 local function onRightAnswer()
 	
 	-- go to level1.lua scene
-	composer.gotoScene( "question2", "fade", 500 )
-	
+	composer.gotoScene( "question26", "fade", 500 )
+
 	return true	-- indicates successful touch
 end
 
-local buttonHandler = function( event )
-	t.text = "id = " .. event.target.id .. ", phase = " .. event.phase
+local function onWrongAnswerAnswer1()
+	
+	wrongAnswer1.isVisible = false
+	wrongAnswer1 = nil	
+
+	return true	-- indicates successful touch
 end
+
+local function onWrongAnswerAnswer2()
+	
+	wrongAnswer2.isVisible = false
+	wrongAnswer2 = nil	
+
+	return true	-- indicates successful touch
+end
+
+local function onWrongAnswerAnswer3()
+	
+	wrongAnswer3.isVisible = false
+	wrongAnswer3 = nil	
+
+	return true	-- indicates successful touch
+end
+
 
 function scene:create( event )
 	local sceneGroup = self.view
 
-	-- create a widget button (which will loads level1.lua on release)
+	-- create a widget button (which will load the next scene on release)
 	rightAnswer = widget.newButton
 		{
 		id = "rightAnswer",
 		defaultFile = "buttonGray.png",
 		overFile = "buttonBlue.png",
-		label = "Example Answer 2",
+		label = "Right Answer",
 		font = native.systemFont,
 		fontSize = 16,
 		emboss = true,
 		onRelease = onRightAnswer
 		}
-	button1 = widget.newButton
+	wrongAnswer1 = widget.newButton
 	{
-		id = "button1",
+		id = "wrongAnswer1",
 		defaultFile = "buttonGray.png",
 		overFile = "buttonBlue.png",
-		label = "Example Answer 4",
+		label = "Wrong Answer",
 		font = native.systemFont,
 		fontSize = 16,
 		emboss = true,
-		onEvent = buttonHandler,
+		onRelease = onWrongAnswerAnswer1
 	}
-	 button3 = widget.newButton
+	 wrongAnswer2 = widget.newButton
 	{
-		id = "button4",
+		id = "wrongAnswer2",
 		defaultFile = "buttonGray.png",
 		overFile = "buttonBlue.png",
-		label = "Example Answer 4",
+		label = "Wrong Answer",
 		font = native.systemFont,
 		fontSize = 16,
 		emboss = true,
-		onEvent = buttonHandler,
+		onRelease = onWrongAnswerAnswer2
 	}
-	 button4 = widget.newButton
+	 wrongAnswer3 = widget.newButton
 	{
-		id = "button4",
+		id = "wrongAnswer3",
 		defaultFile = "buttonGray.png",
 		overFile = "buttonBlue.png",
-		label = "Example Answer 4",
+		label = "Wrong Answer",
 		font = native.systemFont,
 		fontSize = 16,
 		emboss = true,
-		onEvent = buttonHandler,
+		onRelease = onWrongAnswerAnswer3
 	}
-	button1.x = 160; button1.y = 240
-	rightAnswer.x = 160; rightAnswer.y = 320
-	button3.x = 160; button3.y = 400
-	button4.x = 160; button4.y = 480
+	rightAnswer.x = 160;rightAnswer.y = 240
+	wrongAnswer1.x = 160; wrongAnswer1.y = 320
+	wrongAnswer2.x = 160; wrongAnswer2.y = 400
+	wrongAnswer3.x = 160; wrongAnswer3.y = 480
 	
 	-- all display objects must be inserted into group
 	sceneGroup:insert( rightAnswer )
-	sceneGroup:insert( button1 )
-	sceneGroup:insert( button3 )
-	sceneGroup:insert( button4 )
+	sceneGroup:insert( wrongAnswer1 )
+	sceneGroup:insert( wrongAnswer2 )
+	sceneGroup:insert( wrongAnswer3 )
 end
 
 function scene:show( event )
@@ -130,12 +152,12 @@ function scene:destroy( event )
 	if rightAnswer then
 		rightAnswer:removeSelf()	-- widgets must be manually removed
 		rightAnswer = nil
-		button1:removeSelf()	-- widgets must be manually removed
-		button1 = nil
-		button3:removeSelf()	-- widgets must be manually removed
-		button3 = nil
-		button4:removeSelf()	-- widgets must be manually removed
-		button4 = nil
+		wrongAnswer1:removeSelf()
+		wrongAnswer1 = nil
+		wrongAnswer2:removeSelf()
+		wrongAnswer2 = nil
+		wrongAnswer3:removeSelf()
+		wrongAnswer3 = nil		
 	end
 end
 

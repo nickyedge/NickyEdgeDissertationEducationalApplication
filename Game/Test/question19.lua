@@ -1,6 +1,6 @@
 -----------------------------------------------------------------------------------------
 --
--- question5.lua
+-- question19.lua
 --
 -----------------------------------------------------------------------------------------
 
@@ -23,7 +23,7 @@ local wrongAnswer3
 local function onRightAnswer()
 	
 	-- go to level1.lua scene
-	composer.gotoScene( "question6", "fade", 500 )
+	composer.gotoScene( "question20", "fade", 500 )
 
 	return true	-- indicates successful touch
 end

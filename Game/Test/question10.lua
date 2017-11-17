@@ -56,13 +56,13 @@ end
 function scene:create( event )
 	local sceneGroup = self.view
 
-	-- create a widget button (which will loads level1.lua on release)
+	-- create a widget button (which will load the next scene on release)
 	rightAnswer = widget.newButton
 		{
 		id = "rightAnswer",
 		defaultFile = "buttonGray.png",
 		overFile = "buttonBlue.png",
-		label = "Example Answer 2",
+		label = "Right Answer",
 		font = native.systemFont,
 		fontSize = 16,
 		emboss = true,
@@ -73,7 +73,7 @@ function scene:create( event )
 		id = "wrongAnswer1",
 		defaultFile = "buttonGray.png",
 		overFile = "buttonBlue.png",
-		label = "Example Answer 4",
+		label = "Wrong Answer",
 		font = native.systemFont,
 		fontSize = 16,
 		emboss = true,
@@ -84,7 +84,7 @@ function scene:create( event )
 		id = "wrongAnswer2",
 		defaultFile = "buttonGray.png",
 		overFile = "buttonBlue.png",
-		label = "Example Answer 4",
+		label = "Wrong Answer",
 		font = native.systemFont,
 		fontSize = 16,
 		emboss = true,
@@ -95,15 +95,15 @@ function scene:create( event )
 		id = "wrongAnswer3",
 		defaultFile = "buttonGray.png",
 		overFile = "buttonBlue.png",
-		label = "Example Answer 4",
+		label = "Wrong Answer",
 		font = native.systemFont,
 		fontSize = 16,
 		emboss = true,
 		onRelease = onWrongAnswerAnswer3
 	}
 	wrongAnswer1.x = 160;wrongAnswer1.y = 240
-	rightAnswer.x = 160; rightAnswer.y = 320
-	wrongAnswer2.x = 160; wrongAnswer2.y = 400
+	wrongAnswer2.x = 160; wrongAnswer2.y = 320
+	rightAnswer.x = 160; rightAnswer.y = 400
 	wrongAnswer3.x = 160; wrongAnswer3.y = 480
 	
 	-- all display objects must be inserted into group
