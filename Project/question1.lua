@@ -55,6 +55,19 @@ end
 
 function scene:create( event )
 	local sceneGroup = self.view
+	
+	
+	-- Called when the scene's view does not exist.
+	-- 
+	-- INSERT code here to initialize the scene
+	-- e.g. add display objects to 'sceneGroup', add touch listeners, etc.
+
+	-- display a background image
+	local background = display.newImageRect( "background.jpg", display.actualContentWidth, display.actualContentHeight )
+	background.anchorX = 0
+	background.anchorY = 0
+	background.x = 0 + display.screenOriginX 
+	background.y = 0 + display.screenOriginY
 
 	-- create a widget button (which will load the next scene on release)
 	rightAnswer = widget.newButton
@@ -107,6 +120,7 @@ function scene:create( event )
 	wrongAnswer3.x = 160; wrongAnswer3.y = 480
 	
 	-- all display objects must be inserted into group
+	sceneGroup:insert( background )
 	sceneGroup:insert( rightAnswer )
 	sceneGroup:insert( wrongAnswer1 )
 	sceneGroup:insert( wrongAnswer2 )
