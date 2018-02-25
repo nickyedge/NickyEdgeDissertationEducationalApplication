@@ -1,15 +1,15 @@
 -----------------------------------------------------------------------------------------
 --
 -- question1.lua
+-- By Nicky Edge
 --
 -----------------------------------------------------------------------------------------
-
+-- include Corona's 'composer' library, allowing for scene creation
 local composer = require( "composer" )
 local scene = composer.newScene()
 
 -- include Corona's "widget" library
 local widget = require "widget"
-
 --------------------------------------------
 
 -- forward declarations and other locals
@@ -19,10 +19,13 @@ local wrongAnswer2
 local wrongAnswer3
 local counter = 10
 local timeDisplay = display.newText(counter,0,0,native.systemFrontBold,64)
-    
+
+-- timer counter display coordinates    
 timeDisplay.x = display.contentCenterX
 timeDisplay.y = 100
  
+-- timer function, displays a counter that counts down and when it hits 0 
+-- the question is forfeit and the scene changes to the next question 
 local function updateTimer(event)
     counter = counter - 1
     timeDisplay.text = counter
@@ -33,7 +36,8 @@ local function updateTimer(event)
     end
 end
  
-timer.performWithDelay(1000, updateTimer, counter)
+ -- timer update delay, ensures the timer ticks every second
+ timer.performWithDelay(1000, updateTimer, counter)
 
 -- 'onRelease' button event listeners1
 local function onRightAnswer()	
@@ -124,12 +128,13 @@ function scene:create( event )
 		emboss = true,
 		onRelease = onWrongAnswer3
 	}
+	-- button placement coordinates
 	wrongAnswer1.x = 160;wrongAnswer1.y = 240
 	rightAnswer.x = 160; rightAnswer.y = 320
 	wrongAnswer2.x = 160; wrongAnswer2.y = 400
 	wrongAnswer3.x = 160; wrongAnswer3.y = 480
 	
-	-- all display objects must be inserted into group
+	-- all display objects must be inserted into scene group
 	sceneGroup:insert( background )
 	sceneGroup:insert( rightAnswer )
 	sceneGroup:insert( wrongAnswer1 )
@@ -139,14 +144,11 @@ end
 
 function scene:destroy( event )
 	local sceneGroup = self.view
-	
-	-- Called prior to the removal of scene's "view" (sceneGroup)
-	-- 
-	-- INSERT code here to cleanup the scene
-	-- e.g. remove display objects, remove touch listeners, save state, etc.
-	
+	-- remove objects from the scene, so they do not display in the next scene 
+	-- i.e. buttons display from question 1 on question 2. removing them prevents this
 	if rightAnswer then
-		rightAnswer:removeSelf()	-- widgets must be manually removed
+		-- widgets, i.e. the buttons must be manually removed
+		rightAnswer:removeSelf()
 		rightAnswer = nil
 		wrongAnswer1:removeSelf()
 		wrongAnswer1 = nil
@@ -159,7 +161,7 @@ end
 
 ---------------------------------------------------------------------------------
 
--- Listener setup
+-- listener setup
 scene:addEventListener( "create", scene )
 scene:addEventListener( "destroy", scene )
 
