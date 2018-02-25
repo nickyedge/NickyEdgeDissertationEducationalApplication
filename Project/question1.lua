@@ -17,7 +17,7 @@ local rightAnswer
 local wrongAnswer1
 local wrongAnswer2
 local wrongAnswer3
-local counter = 30
+local counter = 10
 local timeDisplay = display.newText(counter,0,0,native.systemFrontBold,64)
     
 timeDisplay.x = display.contentCenterX
@@ -26,40 +26,43 @@ timeDisplay.y = 100
 local function updateTimer(event)
     counter = counter - 1
     timeDisplay.text = counter
-    if rightAnswer == true or counter == 0 then	
+    if counter == 0 then
+		timeDisplay:removeSelf()
+		counter = nil
 		composer.gotoScene( "question2", "fade", 500 )
     end
 end
  
 timer.performWithDelay(1000, updateTimer, counter)
 
--- 'onRelease' event listener for playBtn
-local function onRightAnswer()
-	
-	-- go to question2.lua
+-- 'onRelease' button event listeners1
+local function onRightAnswer()	
+	-- go to question2.lua and remove the timer
+	timeDisplay:removeSelf()
+	counetr = nil
 	composer.gotoScene( "question2", "fade", 500 )
 
 	return true	-- indicates successful touch
 end
 
-local function onWrongAnswerAnswer1()
-	
+local function onWrongAnswer1()
+	-- hide wrong answer once pressed
 	wrongAnswer1.isVisible = false
 	wrongAnswer1 = nil	
 
 	return true	-- indicates successful touch
 end
 
-local function onWrongAnswerAnswer2()
-	
+local function onWrongAnswer2()
+	-- hide wrong answer once pressed
 	wrongAnswer2.isVisible = false
 	wrongAnswer2 = nil	
 
 	return true	-- indicates successful touch
 end
 
-local function onWrongAnswerAnswer3()
-	
+local function onWrongAnswer3()
+	-- hide wrong answer once pressed
 	wrongAnswer3.isVisible = false
 	wrongAnswer3 = nil	
 
@@ -69,13 +72,6 @@ end
 
 function scene:create( event )
 	local sceneGroup = self.view
-	
-	
-	-- Called when the scene's view does not exist.
-	-- 
-	-- INSERT code here to initialize the scene
-	-- e.g. add display objects to 'sceneGroup', add touch listeners, etc.
-
 	-- display a background image
 	local background = display.newImageRect( "background.jpg", display.actualContentWidth, display.actualContentHeight )
 	background.anchorX = 0
@@ -104,7 +100,7 @@ function scene:create( event )
 		font = native.systemFont,
 		fontSize = 16,
 		emboss = true,
-		onRelease = onWrongAnswerAnswer1
+		onRelease = onWrongAnswer1
 	}
 	 wrongAnswer2 = widget.newButton
 	{
@@ -115,7 +111,7 @@ function scene:create( event )
 		font = native.systemFont,
 		fontSize = 16,
 		emboss = true,
-		onRelease = onWrongAnswerAnswer2
+		onRelease = onWrongAnswer2
 	}
 	 wrongAnswer3 = widget.newButton
 	{
@@ -126,7 +122,7 @@ function scene:create( event )
 		font = native.systemFont,
 		fontSize = 16,
 		emboss = true,
-		onRelease = onWrongAnswerAnswer3
+		onRelease = onWrongAnswer3
 	}
 	wrongAnswer1.x = 160;wrongAnswer1.y = 240
 	rightAnswer.x = 160; rightAnswer.y = 320
