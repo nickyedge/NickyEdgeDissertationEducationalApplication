@@ -10,19 +10,24 @@ local scene = composer.newScene()
 
 -- include Corona's "widget" library
 local widget = require "widget"
---------------------------------------------
-
+-----------------------------------------------------------------------------------------
 -- forward declarations and other locals
 local rightAnswer
 local wrongAnswer1
 local wrongAnswer2
 local wrongAnswer3
 local counter = 10
-local timeDisplay = display.newText(counter,0,0,native.systemFrontBold,64)
+local timeDisplay = display.newText(counter,0,0,native.systemFrontBold,32)
+local scoreDisplay = display.newText(score,0,0,native.systemFrontBold,32)
+
 
 -- timer counter display coordinates    
 timeDisplay.x = display.contentCenterX
 timeDisplay.y = 100
+
+-- score counter display coordinates
+scoreDisplay.x = 100
+scoreDisplay.y = 100
  
 -- timer function, displays a counter that counts down and when it hits 0 
 -- the question is forfeit and the scene changes to the next question 
@@ -31,7 +36,6 @@ local function updateTimer(event)
     timeDisplay.text = counter
     if counter == 0 then
 		timeDisplay:removeSelf()
-		counter = nil
 		composer.gotoScene( "question2", "fade", 500 )
     end
 end
@@ -41,34 +45,38 @@ end
 
 -- 'onRelease' button event listeners1
 local function onRightAnswer()	
-	-- go to question2.lua and remove the timer
+	-- go to question2.lua, add a point to score, and remove the timer
+	score = score + 1
+	scoreDisplay.text = score
 	timeDisplay:removeSelf()
-	counetr = nil
 	composer.gotoScene( "question2", "fade", 500 )
 
 	return true	-- indicates successful touch
 end
 
 local function onWrongAnswer1()
-	-- hide wrong answer once pressed
+	-- hide wrong answer once pressed, and take away a point from the score
+	score = score - 1
+	scoreDisplay.text = score
 	wrongAnswer1.isVisible = false
-	wrongAnswer1 = nil	
 
 	return true	-- indicates successful touch
 end
 
 local function onWrongAnswer2()
-	-- hide wrong answer once pressed
+	-- hide wrong answer once pressed, and take away a point from the score
+	score = score - 1
+	scoreDisplay.text = score
 	wrongAnswer2.isVisible = false
-	wrongAnswer2 = nil	
 
 	return true	-- indicates successful touch
 end
 
 local function onWrongAnswer3()
-	-- hide wrong answer once pressed
+	-- hide wrong answer once pressed, and take away a point from the score
+	score = score - 1
+	scoreDisplay.text = score
 	wrongAnswer3.isVisible = false
-	wrongAnswer3 = nil	
 
 	return true	-- indicates successful touch
 end
@@ -130,9 +138,9 @@ function scene:create( event )
 	}
 	-- button placement coordinates
 	wrongAnswer1.x = 160;wrongAnswer1.y = 240
-	rightAnswer.x = 160; rightAnswer.y = 320
-	wrongAnswer2.x = 160; wrongAnswer2.y = 400
-	wrongAnswer3.x = 160; wrongAnswer3.y = 480
+	rightAnswer.x = 160; rightAnswer.y = 300
+	wrongAnswer2.x = 160; wrongAnswer2.y = 360
+	wrongAnswer3.x = 160; wrongAnswer3.y = 420
 	
 	-- all display objects must be inserted into scene group
 	sceneGroup:insert( background )

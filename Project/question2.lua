@@ -1,53 +1,77 @@
 -----------------------------------------------------------------------------------------
 --
--- question2.lua
+-- question1.lua
+-- By Nicky Edge
 --
 -----------------------------------------------------------------------------------------
-
+-- include Corona's 'composer' library, allowing for scene creation
 local composer = require( "composer" )
 local scene = composer.newScene()
 
 -- include Corona's "widget" library
 local widget = require "widget"
-
---------------------------------------------
+-----------------------------------------------------------------------------------------
 
 -- forward declarations and other locals
 local rightAnswer
 local wrongAnswer1
 local wrongAnswer2
 local wrongAnswer3
+local counter = 10
+local timeDisplay = display.newText(counter,0,0,native.systemFrontBold,32)
 
+-- timer counter display coordinates    
+timeDisplay.x = display.contentCenterX
+timeDisplay.y = 100
+ 
+-- timer function, displays a counter that counts down and when it hits 0 
+-- the question is forfeit and the scene changes to the next question 
+local function updateTimer(event)
+    counter = counter - 1
+    timeDisplay.text = counter
+    if counter == 0 then
+		timeDisplay:removeSelf()
+		composer.gotoScene( "question2", "fade", 500 )
+    end
+end
+ 
+ -- timer update delay, ensures the timer ticks every second
+ timer.performWithDelay(1000, updateTimer, counter)
 
--- 'onRelease' event listener for playBtn
-local function onRightAnswer()
-	
-	-- go to level1.lua scene
-	composer.gotoScene( "question3", "fade", 500 )
+-- 'onRelease' button event listeners1
+local function onRightAnswer()	
+	-- go to question2.lua, add a point to score, and remove the timer
+	score = score + 1
+	scoreDisplay.text = score
+	timeDisplay:removeSelf()
+	composer.gotoScene( "question2", "fade", 500 )
 
 	return true	-- indicates successful touch
 end
 
-local function onWrongAnswerAnswer1()
-	
+local function onWrongAnswer1()
+	-- hide wrong answer once pressed, and take away a point from the score
+	score = score - 1
+	scoreDisplay.text = score
 	wrongAnswer1.isVisible = false
-	wrongAnswer1 = nil	
 
 	return true	-- indicates successful touch
 end
 
-local function onWrongAnswerAnswer2()
-	
-	wrongAnswer2.isVisible = false
-	wrongAnswer2 = nil	
+local function onWrongAnswer2()
+	-- hide wrong answer once pressed, and take away a point from the score
+	score = score - 1
+	scoreDisplay.text = score
+	wrongAnswer2.isVisible = false	
 
 	return true	-- indicates successful touch
 end
 
-local function onWrongAnswerAnswer3()
-	
+local function onWrongAnswer3()
+	-- hide wrong answer once pressed, and take away a point from the score
+	score = score - 1
+	scoreDisplay.text = score
 	wrongAnswer3.isVisible = false
-	wrongAnswer3 = nil	
 
 	return true	-- indicates successful touch
 end
@@ -55,10 +79,16 @@ end
 
 function scene:create( event )
 	local sceneGroup = self.view
+	-- display a background image
+	local background = display.newImageRect( "background.jpg", display.actualContentWidth, display.actualContentHeight )
+	background.anchorX = 0
+	background.anchorY = 0
+	background.x = 0 + display.screenOriginX 
+	background.y = 0 + display.screenOriginY
 
 	-- create a widget button (which will load the next scene on release)
 	rightAnswer = widget.newButton
-		{
+	{
 		id = "rightAnswer",
 		defaultFile = "buttonGray.png",
 		overFile = "buttonBlue.png",
@@ -67,7 +97,7 @@ function scene:create( event )
 		fontSize = 16,
 		emboss = true,
 		onRelease = onRightAnswer
-		}
+	}
 	wrongAnswer1 = widget.newButton
 	{
 		id = "wrongAnswer1",
@@ -77,7 +107,7 @@ function scene:create( event )
 		font = native.systemFont,
 		fontSize = 16,
 		emboss = true,
-		onRelease = onWrongAnswerAnswer1
+		onRelease = onWrongAnswer1
 	}
 	 wrongAnswer2 = widget.newButton
 	{
@@ -88,7 +118,7 @@ function scene:create( event )
 		font = native.systemFont,
 		fontSize = 16,
 		emboss = true,
-		onRelease = onWrongAnswerAnswer2
+		onRelease = onWrongAnswer2
 	}
 	 wrongAnswer3 = widget.newButton
 	{
@@ -99,74 +129,43 @@ function scene:create( event )
 		font = native.systemFont,
 		fontSize = 16,
 		emboss = true,
-		onRelease = onWrongAnswerAnswer3
+		onRelease = onWrongAnswer3
 	}
-	rightAnswer.x = 160;rightAnswer.y = 240
-	wrongAnswer1.x = 160; wrongAnswer1.y = 320
-	wrongAnswer2.x = 160; wrongAnswer2.y = 400
-	wrongAnswer3.x = 160; wrongAnswer3.y = 480
+	-- button placement coordinates
+	wrongAnswer1.x = 160;wrongAnswer1.y = 240
+	rightAnswer.x = 160; rightAnswer.y = 300
+	wrongAnswer2.x = 160; wrongAnswer2.y = 360
+	wrongAnswer3.x = 160; wrongAnswer3.y = 420
 	
-	-- all display objects must be inserted into group
+	-- all display objects must be inserted into scene group
+	sceneGroup:insert( background )
 	sceneGroup:insert( rightAnswer )
 	sceneGroup:insert( wrongAnswer1 )
 	sceneGroup:insert( wrongAnswer2 )
 	sceneGroup:insert( wrongAnswer3 )
 end
 
-function scene:show( event )
-	local sceneGroup = self.view
-	local phase = event.phase
-	
-	if phase == "will" then
-		-- Called when the scene is still off screen and is about to move on screen
-	elseif phase == "did" then
-		-- Called when the scene is now on screen
-		-- 
-		-- INSERT code here to make the scene come alive
-		-- e.g. start timers, begin animation, play audio, etc.
-	end	
-end
-
-function scene:hide( event )
-	local sceneGroup = self.view
-	local phase = event.phase
-	
-	if event.phase == "will" then
-		-- Called when the scene is on screen and is about to move off screen
-		--
-		-- INSERT code here to pause the scene
-		-- e.g. stop timers, stop animation, unload sounds, etc.)
-	elseif phase == "did" then
-		-- Called when the scene is now off screen
-	end	
-end
-
 function scene:destroy( event )
 	local sceneGroup = self.view
-	
-	-- Called prior to the removal of scene's "view" (sceneGroup)
-	-- 
-	-- INSERT code here to cleanup the scene
-	-- e.g. remove display objects, remove touch listeners, save state, etc.
-	
+	-- remove objects from the scene, so they do not display in the next scene 
+	-- i.e. buttons display from question 1 on question 2. removing them prevents this
 	if rightAnswer then
-		rightAnswer:removeSelf()	-- widgets must be manually removed
+		-- widgets, i.e. the buttons must be manually removed
+		rightAnswer:removeSelf()
 		rightAnswer = nil
 		wrongAnswer1:removeSelf()
 		wrongAnswer1 = nil
 		wrongAnswer2:removeSelf()
 		wrongAnswer2 = nil
 		wrongAnswer3:removeSelf()
-		wrongAnswer3 = nil		
+		wrongAnswer3 = nil	
 	end
 end
 
 ---------------------------------------------------------------------------------
 
--- Listener setup
+-- listener setup
 scene:addEventListener( "create", scene )
-scene:addEventListener( "show", scene )
-scene:addEventListener( "hide", scene )
 scene:addEventListener( "destroy", scene )
 
 -----------------------------------------------------------------------------------------
