@@ -1,11 +1,11 @@
 -- config.lua
 
-application =
-{
-	content =
-	{
-		width = 320,
-		height = 480,
-		scale = "letterbox", -- zoom to screen dimensions (may add extra space at top or sides)
-	},
+local aspectRatio = display.pixelHeight / display.pixelWidth
+ application = {
+   content = {
+    width = aspectRatio > 1.5 and 320 or math.ceil( 480 / aspectRatio ),
+    height = aspectRatio < 1.5 and 480 or math.ceil( 320 * aspectRatio ),
+    scale = "letterBox",
+    fps = 30,
+ },
 }

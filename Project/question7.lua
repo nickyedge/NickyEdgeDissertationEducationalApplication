@@ -1,6 +1,6 @@
 -----------------------------------------------------------------------------------------
 --
--- question1.lua
+-- question7.lua
 -- By Nicky Edge
 --
 -----------------------------------------------------------------------------------------
@@ -16,7 +16,7 @@ local function helpBtnPress(event)
 	scoreDisplay.text = score
 	event.target.xScale = 0.95
 	event.target.yScale = 0.95
-	composer.showOverlay("question1Overlay", {effect = "fade", isModal = true})
+	composer.showOverlay("question7Overlay", {effect = "fade", isModal = true})
 end
  
 -- timer function, displays a counter that counts down and when it hits 0 
@@ -28,8 +28,8 @@ local function updateTimer(event)
 		score = score - 10
 		timeDisplay:removeSelf()
 		scoreDisplay:removeSelf()
-		composer.removeScene("question1")
-		composer.gotoScene("question2", "fade", 500)
+		composer.removeScene("question7")
+		composer.gotoScene("question8", "fade", 500)
     end
 end
 
@@ -37,30 +37,30 @@ local countdown = timer.performWithDelay(1000, updateTimer, counter)
 
 -- 'onRelease' button event listeners1
 local function onRightAnswer(event)	
-	-- go to question2.lua, add 5 points to score
+	-- go to question8.lua, add a point to score, and remove the timer
 	score = score + 5
 	scoreDisplay.text = score
-	question1 = 1
-	composer.removeScene("question1")
-	composer.gotoScene("question2", "fade", 500)
+	question7 = 1
+	composer.removeScene("question7")
+	composer.gotoScene("question8", "fade", 500)
 end
 
 local function onWrongAnswer1(event)
-	-- go to question2.lua, take 5 points from score
+	-- go to question8.lua, take 5 points from score
 	score = score - 5
 	scoreDisplay.text = score
-	question1 = 0
-	composer.removeScene("question1")
-	composer.gotoScene("question2", "fade", 500)
+	question7 = 0
+	composer.removeScene("question7")
+	composer.gotoScene("question8", "fade", 500)
 end
 
 local function onWrongAnswer2(event)
-	-- go to question2.lua, take 5 points from score
+	-- go to question8.lua, take 5 points from score
 	score = score - 5
 	scoreDisplay.text = score
-	question1 = 0
-	composer.removeScene("question1")
-	composer.gotoScene("question2", "fade", 500)
+	question7 = 0
+	composer.removeScene("question7")
+	composer.gotoScene("question8", "fade", 500)
 end
 
 function scene:create(event)
@@ -75,24 +75,23 @@ function scene:create(event)
 	overlayHelpBtn.x = 20;overlayHelpBtn.y = 200
 	overlayHelpBtn:addEventListener ("tap", helpBtnPress)
 	
-	question = display.newText([[Question 1: A worm is... ]], 0, 0, "Helvetica", 16)
+	question = display.newText([[Question 7: What is the best way to 
+	protect your information when you are 
+	away from your computer?]], 0, 0, "Helvetica", 16)
 	question:setTextColor(0,0,0)
 	question.x = display.contentCenterX;question.y = 100
-
 	
-	answerOne = display.newText([[A. A slimy pink thing that lives in dirt]], 0, 0, "Helvetica", 14)
+	answerOne = display.newText([[A. Lock the computer with a password]], 0, 0, "Helvetica", 14)
 	answerOne:setTextColor(0,0,0)
-	answerOne.x = display.contentCenterX;answerOne.y = 255
+	answerOne.x = 160;answerOne.y = 255
 
-	answerTwo = display.newText([[B. Pieces of malicious code that 
-	 replicate themselves and spread through 
-	 computers without human interaction.]], 0, 0, "Helvetica", 14)
+	answerTwo = display.newText([[B. Activate the screen saver]], 0, 0, "Helvetica", 14)
 	answerTwo:setTextColor(0,0,0)
-	answerTwo.x = display.contentCenterX;answerTwo.y = 330
+	answerTwo.x = 160;answerTwo.y = 330
 
-	answerThree = display.newText([[C. An unsolicited email message.]], 0, 0, "Helvetica", 14)
+	answerThree = display.newText([[C. Turn the monitor off]], 0, 0, "Helvetica", 14)
 	answerThree:setTextColor(0,0,0)
-	answerThree.x = display.contentCenterX;answerThree.y = 405
+	answerThree.x = 160;answerThree.y = 405
 	
 	wrongAnswer1 = display.newRect (0, 0, 280, 70)
 	wrongAnswer1:setFillColor(1, 0.2, 0.2)
@@ -100,7 +99,7 @@ function scene:create(event)
     wrongAnswer1:setStrokeColor(black)
 	wrongAnswer1.alpha = 1
 	wrongAnswer1.isHitTestable = true
-	wrongAnswer1.x = 160;wrongAnswer1.y = 255
+	wrongAnswer1.x = 160;wrongAnswer1.y = 330
 	wrongAnswer1:addEventListener ("tap", onWrongAnswer1)
 	
 	rightAnswer = display.newRect (0, 0, 280, 70)
@@ -109,7 +108,7 @@ function scene:create(event)
     rightAnswer:setStrokeColor(black)
 	rightAnswer.alpha = 1
 	rightAnswer.isHitTestable = true
-	rightAnswer.x = 160;rightAnswer.y = 330
+	rightAnswer.x = 160;rightAnswer.y = 255
 	rightAnswer:addEventListener ("tap", onRightAnswer)
 	
 	wrongAnswer2 = display.newRect (0, 0, 280, 70)
@@ -120,6 +119,7 @@ function scene:create(event)
 	wrongAnswer2.isHitTestable = true
 	wrongAnswer2.x = 160;wrongAnswer2.y = 405
 	wrongAnswer2:addEventListener ("tap", onWrongAnswer2)
+	
 	
 	myTime = display.newText("Time:", 100, 200, native.systemFont, 16)
 	myTime:setFillColor(1, 0, 0)
@@ -181,4 +181,3 @@ scene:addEventListener("destroy", scene)
 --------------------------------------------------------------------------------------
 
 return scene
-
