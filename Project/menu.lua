@@ -16,21 +16,15 @@ local widget = require "widget"
 local playBtn
 
 -- 'onRelease' event listener for playBtn
-local function onPlayBtnRelease()
-	
+local function onPlayBtnRelease()	
 	-- go to question1.lua scene
-	composer.gotoScene( "question1", "fade", 500 )
+	composer.gotoScene( "question1", "crossFade", 500)
 	
 	return true	-- indicates successful touch
 end
 
 function scene:create( event )
 	local sceneGroup = self.view
-
-	-- Called when the scene's view does not exist.
-	-- 
-	-- INSERT code here to initialize the scene
-	-- e.g. add display objects to 'sceneGroup', add touch listeners, etc.
 
 	-- display a background image
 	local background = display.newImageRect( "background.jpg", display.actualContentWidth, display.actualContentHeight )
@@ -44,12 +38,10 @@ function scene:create( event )
 	titleLogo.x = display.contentCenterX
 	titleLogo.y = 100
 	
-	-- create a widget button (which will loads level1.lua on release)
+	-- create a widget button (which will loads question1.lua on release)
 	playBtn = widget.newButton{
 		label="Play Now",
 		labelColor = { default={255}, over={128} },
-		default="buttonBlue.png",
-		over="buttonGray.png",
 		width=154, height=40,
 		onRelease = onPlayBtnRelease	-- event listener function
 	}
@@ -64,12 +56,6 @@ end
 
 function scene:destroy( event )
 	local sceneGroup = self.view
-	
-	-- Called prior to the removal of scene's "view" (sceneGroup)
-	-- 
-	-- INSERT code here to cleanup the scene
-	-- e.g. remove display objects, remove touch listeners, save state, etc.
-	
 	if playBtn then
 		playBtn:removeSelf()	-- widgets must be manually removed
 		playBtn = nil

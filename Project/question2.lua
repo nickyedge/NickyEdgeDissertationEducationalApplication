@@ -21,8 +21,8 @@ local counter = 10
 local timeDisplay = display.newText(counter,0,0,native.systemFrontBold,32)
 
 -- timer counter display coordinates    
-timeDisplay.x = display.contentCenterX
-timeDisplay.y = 100
+timeDisplay.x = 280
+timeDisplay.y = 180
  
 -- timer function, displays a counter that counts down and when it hits 0 
 -- the question is forfeit and the scene changes to the next question 
@@ -31,7 +31,7 @@ local function updateTimer(event)
     timeDisplay.text = counter
     if counter == 0 then
 		timeDisplay:removeSelf()
-		composer.gotoScene( "question2", "fade", 500 )
+		composer.gotoScene( "question3", "fade", 500 )
     end
 end
  

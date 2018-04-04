@@ -20,14 +20,22 @@ local counter = 10
 local timeDisplay = display.newText(counter,0,0,native.systemFrontBold,32)
 local scoreDisplay = display.newText(score,0,0,native.systemFrontBold,32)
 
-
 -- timer counter display coordinates    
-timeDisplay.x = display.contentCenterX
-timeDisplay.y = 100
+timeDisplay.x = 280
+timeDisplay.y = 180
 
 -- score counter display coordinates
-scoreDisplay.x = 100
-scoreDisplay.y = 100
+scoreDisplay.x = 140
+scoreDisplay.y = 180
+ 
+local function upateScoreTime()
+	local currentSceneName = storyboard.getCurrentSceneName()
+	local currentScene = storyboard.getScene(currentSceneName)
+    if currentScene == currentScene then
+      swl.printInfo("Couldn't get the current scene object!", fileName, methodName)
+      return false
+    end
+ 
  
 -- timer function, displays a counter that counts down and when it hits 0 
 -- the question is forfeit and the scene changes to the next question 
